@@ -16,13 +16,13 @@ function adjustHealthBars(maxLife) {
 }
 
 function dealMonsterDamage(damage) {
-  const dealtDamage = Math.random() * damage;
+  const dealtDamage = parseInt(Math.random() * damage);
   monsterHealthBar.value = +monsterHealthBar.value - dealtDamage;
   return dealtDamage;
 }
 
 function dealPlayerDamage(damage) {
-  const dealtDamage = Math.random() * damage;
+  const dealtDamage = parseInt(Math.random() * damage);
   playerHealthBar.value = +playerHealthBar.value - dealtDamage;
   return dealtDamage;
 }
