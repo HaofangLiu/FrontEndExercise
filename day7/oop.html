@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <!-- <script src="script.js" defer></script> -->
+  </head>
+  <body></body>
+  <script>
+    //create obj
+    //1.
+    let obj = {
+      name: "aaa",
+      age: 12,
+      hobby: function() {
+        console.log("like basketball");
+      }
+    };
+    //2
+    let obj1 = new Object();
+    obj1.name = "zhangsan";
+    obj1.age = 12;
+    obj1.hobby = function() {
+      console.log("like basketball");
+    };
+    //3
+    let obj2 = Object.create({
+        name:'zhangsan',
+        age:10,
+        hobby(){
+            console.log("like basketball");
+        }
+    })
+
+    //1.1
+    console.log(obj.name);
+    obj.hobby();
+    console.log(obj['name']);
+
+    //构造函数Constructor---1.首字母大写 2. this指向实例化对象
+    function Person(name){
+        this.name = name;
+        this.age = 20;
+        this.hobby = function(){
+            console.log('like football');
+        }
+    }
+    //静态成员以及静态方法
+    Person.num = 0;
+    Person.fn = function(){
+        console.log('static method');
+    }
+
+    //instantiation
+    let Luca = new Person('Lucas');
+    Person.num++;
+    let ing = new Person('ing');
+    Person.num++;
+    console.log(Person.num);
+
+
+    function Dad(name,age){
+        this.name = name;
+        this.age = age;
+        this.money = '111';
+    }
+
+    function Son(name,age){
+        //改变父类this指向
+        Dad.call(this)//继承inheritance
+        this.sex = 'male'
+    }
+
+    let sonObj = new Son("LittleLucas",10);
+    console.log(sonObj.money);
+    console.log(sonObj.sex);
+
+    //deep copy method: get all attr but not effect on origion one 
+    function deepCopy(obj){
+        const newObj = Array.isArray(obj)?[]:{};
+        for(let key in obj){
+            if(obj.hasOwnProperty(key)){
+                if(typeof obj[key]=== "object"){
+                    newObj[key] = deepCopy(obj[key]);
+                }
+                else{
+                    newObj[key] = obj[key];
+                }
+            }
+        }
+        return newObj;
+    }
+
+  </script>
+</html>

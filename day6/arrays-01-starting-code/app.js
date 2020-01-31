@@ -80,6 +80,7 @@ const tax = 0.19;
 
 const taxAdjustedPrice = [];
 
+
 // for(const price of prices){
 
 //     taxAdjustedPrice.push(price * (1 + tax));
@@ -91,4 +92,18 @@ prices.forEach((price,idx,prices) => {
     taxAdjustedPrice.push(adjPriceObj);
 });
 
-console.log(taxAdjustedPrice);
+//there is a return statement. 
+//It can give you a new array without any changes on origin array.
+const abv = prices.map((price,idx,prices) => {
+    const adjPriceObj1 = {index: idx, taxAdjustedPrice: price * (1 + tax)}
+    return adjPriceObj1;
+});
+
+//SORT 
+const sortedPrice = prices.sort((a,b) => {
+    return a - b;
+})
+
+console.log(taxAdjustedPrice,abv,prices);
+
+console.log(sortedPrice);

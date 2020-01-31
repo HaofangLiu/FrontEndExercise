@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <!-- <script src="script.js" defer></script> -->
+  </head>
+  <body></body>
+  <script>
+    //function(name){
+    //this.name = name;
+    //}
+    //Person.prototype.fn = function(){
+    //}
+
+    //对应es5的构造函数（工厂模式）
+    //this class is a function type
+    class Person {
+      static age = 10;//属于类的属性而不是对象的属性，不需要实例化就可以调用
+      #height = '180cm';//私有属性private
+      constructor(name) {
+        this.name = name;
+      }
+      getAge(){
+          console.log(Person.age);
+      }
+      getHeight(){
+          console.log(this.#height);
+      }
+      //对应ES5的原型prototype的fn方法
+      fn() {
+        console.log("this is prototype function");
+      }
+    }
+
+    const lucasPerson = new Person("Lucas");
+    lucasPerson.getAge();
+    //console.log(lucasPerson.age);
+    lucasPerson.getHeight();
+
+    //继承
+    //构造函数由自身和原型prototype（方法）构成,super方法会取会父类的两个方法
+    class Dad{
+        constructor(height){
+            this.height = height;
+        }
+        foo(){
+            console.log('this is foo');
+        }
+        setStyle(){
+            console.log('set father')
+        }
+    }
+
+    class Son extends Dad{
+        constructor(height){
+            super(height);//调用父类的构造函数
+        }
+        setStyle(){
+            super.setStyle();//call father mothod and son oen method together;
+            console.log('set son');
+        }
+    }
+
+    const zhangsan = new Son('160cm');
+
+    zhangsan.setStyle();
+  </script>
+</html>
