@@ -9,4 +9,69 @@
 <body>
     <!--  -->
 </body>
+<script>
+    const price = [1,2,3,4,5,1,2,,3,5,23,4]
+    // const filterArray = price.filter((priceSingle,idx,price)=>{
+    //     return priceSingle > 6;
+    // })
+    const filterArray = price.filter(p => p > 6);
+    console.log(price);
+    console.log(filterArray);
+
+    // let sum = 0;
+    // price.forEach(price => sum += price)
+    // console.log(sum);
+
+
+    const sum = price.reduce((preValue,currentValue,curIndex,price)=> {
+        return preValue + currentValue;
+    },0)//0 refers to the first, then the preValue replaces with the result just got.
+    console.log(sum);
+
+    const data = 'New York ; 10.99 ; 2000';
+    const transfomData = data.split(' ; ');
+    transfomData[1] = +transfomData[1];//tranfer string to int
+    console.log(transfomData);
+
+    const nameFragments = ['Max','Lucas','Ingrid'];
+    const nameArray = nameFragments.join(' ');//join all ele as a string. (default use , to link) We can put any spliter inside the ().
+    console.log(nameArray);
+
+
+    //create a new array without effect the origion one.
+    //use rest parameter(spread operator)
+    const nameFragmentsNew = [...nameFragments];
+    nameFragmentsNew.push('NewLucas');
+    console.log(nameFragments,nameFragmentsNew);
+
+    //min value
+    console.log(Math.min(...price));
+
+    
+    //Set
+    const ids = new Set([1,2,2,3]);
+    ids.add(2);
+    console.log(ids);
+    console.log(ids.has(1))
+
+    //this will give twice of the entry
+    for(const entry of ids.values()){
+        console.log(entry);
+    }
+
+    //map
+    const personOne = {name: 'Mac'};
+    const personTwo = {name: 'Lucas'}
+    
+    const personData = new Map([[personOne,[
+        {
+            data:'yesterday',price: 10
+        }
+    ]]]);
+
+    console.log(personData);
+    console.log(personData.get(personOne));
+
+
+</script>
 </html>

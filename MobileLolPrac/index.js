@@ -25,6 +25,7 @@ els.loginBtn.onclick = function() {
     li.innerHTML = `Hero Name: ${heros.name} <img src='./sources/heros/${heros.icon}' />`;
     // console.log(heros.icon);
     li.onclick = function() {
+      els.skillUl.innerHTML = '';
       heros.skills.forEach(skill => {
         const skillLi = document.createElement("li");
         skillLi.innerHTML = `Skill name: ${skill.name} <img src='./sources/skills/${skill.icon}' />`;
