@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //promise
+    //三种状态 pengding, resolve and reject.
+    //有两个参数： 成功时调用resolve，失败时调用reject
+    //pending,resolved/fulfilled
+    const p1 = new Promise((resolve, reject) => {
+      // resolve(111);
+      // reject('this is error message');
+      setTimeout(() => {
+        resolve("this success");
+        // reject('this fails')
+      }, 1000);
+    });
+    // console.log(p1);
+    //promise then 函数自带异步方法： onresolved, onrejected(可以省略).提供一个回调
+    //当resolve, reject执行完毕时会立刻执行的方法。
+
+    // p1.then((res) => {
+    //     console.log(res);
+    // },(err)=>{
+    //     console.log(err)
+    // })
+
+    //也可以用catch来捕捉reject的错误
+    // p1.then((res) => {
+    //     console.log(res);
+    // }).catch((err) => {
+    //     console.log(err)
+    // })
+
+    //then 的三种返还
+    //1. 回调没有返还：会自动返还一个promise对象
+    const resule = p1.then(res => {
+      console.log(res);
+    });
+    console.log(resule);
+
+    //Promise {<pending>}
+    // __proto__: Promise
+    // [[PromiseStatus]]: "resolved"
+    // [[PromiseValue]]: undefined
+    //this success
+
+    //2.回调有返还：会自动通过promise包装返还值，返还一个promise对象；
+    //这种写法的话第一个promise对象仍然是undefined
+    const result = p1
+      .then(res => {
+        console.log(res);
+        return "return value is here";
+      })
+      .then(res2 => {
+        console.log("2nd " + res2);
+        // return '213142'
+      });
+    console.log(result);
+
+    //result也是promise函数，所以也可以继续then
+
+    // result.then((res => {
+    //     console.log('2'  + res)
+    // }))
+
+    //     Promise {<pending>}__proto__: Promise[[PromiseStatus]]: "resolved"[[PromiseValue]]: undefined（第二种写法会有值--第一个then返回值）
+    // promise.html:64 Promise {<pending>}__proto__: Promise[[PromiseStatus]]: "resolved"[[PromiseValue]]: undefined
+    // promise.html:43 this success
+    // promise.html:53 this success
+    // promise.html:56 2nd return value is here
+
+    //3. 返还一个promise对象：
+    const result3 = p1.then(res => {
+      //console.log(res);
+      return new Promise(resolve => {
+        resolve("return the promise134124");
+      });
+    });
+    console.log(result3);
+
+    //       Promise {<pending>}
+    // __proto__: Promise
+    // [[PromiseStatus]]: "resolved"
+    // [[PromiseValue]]: "return the promise"
+  </script>
+</html>

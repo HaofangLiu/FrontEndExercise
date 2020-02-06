@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
+  <script>
+    function move(ele, direction, target) {
+      return new Promise(resolve => {
+        function fn() {
+          let start = parseInt(window.getComputedStyle(ele, null)[direction]); //null指向尾类
+          console.log(start);
+          const way = (target - start) / Math.abs(target - start); //1 or -1
+          const speed = 5 * way;
+          start += speed;
+          ele.style[direction] = start + "px";
+          if (start == target) {
+            // console.log("arrive destination");
+            // cb && cb();
+            resolve('arrive destination');
+          } else {
+            //递归调用循环
+            //动画帧（调用gpu的性能）
+            window.requestAnimationFrame(fn);
+          }
+        }
+        fn();
+      });
+    }
+    const box = document.querySelector(".box");
+    //回调地狱
+    // move(box, "left", 200, function() {
+    //   move(box, "top", 200, function() {
+    //     move(box, "left", 0, function() {
+    //       move(box, "top", 0, function() {
+    //         console.log("stop moving...");
+    //       });
+    //     });
+    //   });
+    // });
+    //move(box, "top", 200);
+
+    move(box, "left", 200).then((res) => {
+      return move(box, "top", 200)
+    }).then((res) => {
+      return move(box, "left", 0)
+    }).then((res) => {
+      return move(box, "top", 0)
+    }).then((res) => {
+      console.log(res);
+      
+    })
+
+  </script>
+</html>
