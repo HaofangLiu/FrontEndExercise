@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <input v-model='modelData' />{{modelData}}
+    </div>
+    
+</body>
+<script>
+//数据优先
+const vm = new Vue({
+    el:'#app',
+    data:{
+        message:'测试数据',
+        modelData:'双向绑定'
+    }
+})
+
+console.log(vm._data);
+
+setTimeout(() => {
+    vm._data.message = 'changed data';
+},2000)
+
+</script>
+
+
+</html>

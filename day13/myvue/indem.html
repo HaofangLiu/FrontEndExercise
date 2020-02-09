@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="myvue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      123{{message}}123
+      <div>111{{message}}</div>
+      <div></div>
+      <div>111{{message}}</div>
+    </div>
+  </body>
+  <script>
+    //数据优先
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        message: "测试数据",
+        myData: "myData"
+      }
+    });
+    console.log(vm._data);
+    // _ $ 内部属性习惯先加这个符号。（底层要求）
+    setTimeout(() => {
+      vm._data.message = "changed data";
+    }, 2000);
+
+    //1.拿到data里的数据 渲染到dom里面
+    //2. 如果数据有变化，视图也会对应改变
+  </script>
+</html>

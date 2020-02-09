@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    const obj = { name: "Ingeid" };
+
+    console.log(obj);
+
+    //     {name: "Ingeid"}
+    // name: "Ingeid"
+    // __proto__: Object
+
+    //优势：可以获取到值
+    let newObj = Object.defineProperty({}, "name", {
+        configurable:true,
+        enumerable: true,//for循环靠枚举属性（遍历所有的property）
+      get() {
+        console.log("getting");
+        return "Lucas";
+      },
+      set(newValue) {
+        console.log("set as " + newValue);
+        console.log("setting");
+      }
+    });
+
+    //getter方法会被调用
+    newObj.name;
+    //setter方法会被调用
+    newObj.name = 'Lucasssss';
+
+    console.log(newObj);
+
+    //     {}
+    // name: "Lucas"
+    // get name: ƒ get()
+    // set name: ƒ set(newValue)
+    // __proto__: Object
+
+
+    let objES6 = {
+        name: 'Lucass',
+        age:20
+    }
+
+    let newObject = new Proxy(obj,{
+        get(target,key){
+            console.log('get/....');
+            return target[key];
+        },
+        set(target,key,newValue){
+            console.log('set...',target[key],newValue)
+        }
+    })
+    newObject.name='newLucas'
+
+  </script>
+</html>
