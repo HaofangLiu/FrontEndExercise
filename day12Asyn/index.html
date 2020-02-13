@@ -9,19 +9,26 @@
   <body></body>
 
   <script>
-      //接收callback函数等待执行，异步回调
+    //接收callback函数等待执行，异步回调
     function test(cb) {
       setTimeout(() => {
         console.log("test..");
+        console.log("test..");
+        console.log("test..");
+        console.log("test..");
+        var time = new Date().getTime(); //获取当前的unix时间戳
+        while (new Date().getTime() - time > 5000) {}
+        console.log("5秒过去了");
         cb & cb();
-      },1000);
+      }, 5000);
+      console.log('kuytfk');
     }
 
     //回调
     //将函数传回去等待异步函数执行完毕直接这个函数
-    test(function(){
-        console.log("end");
+    test(function() {
+      console.log("end");
+      
     });
-    
   </script>
 </html>
