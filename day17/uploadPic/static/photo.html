@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/photo.css">
+</head>
+
+<body>
+    <!-- 展示相关 -->
+    <div class="container">
+        <div class="photoHeader">
+            <div class="imgContainer">
+                <img class="photoName" src="img/1.jpg" />
+            </div>
+            <div class="btnContainer">
+                <span class="photoTitle">相册名称</span>
+                <button class="mybtn">上传照片</button>
+            </div>
+        </div>
+
+        <div class="photoContainer">
+            <div class="photoItem">
+                <img src="img/Home.png" />
+                <span>
+                    home
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- 上传相关 -->
+    <div class="masking">
+        <div class="addPhotoContainer"></div>
+        <div class="addController">
+            <h3 class="addTitle">上传照片-普通上传(H5)<span class="close">╳</span></h3>
+            <div class="photoTitles">
+                <span class="uploadTo">上传到</span>
+                <div class="photoSelect">
+                    <img class="showPhoto" src="img/1.jpg" />
+                    相册名称
+                </div>
+            </div>
+
+            <!-- 上传按钮 -->
+            <div class="showContainer">
+                <div class="uploadContainer">
+                    <span class="fileinput-button">
+                        <span>上传图片</span>
+                        <input class="imgFile" type="file" name="" multiple="multiple" />
+                    </span>
+                    <span class="hint">
+                        按住Ctrl可多选
+                    </span>
+                </div>
+            </div>
+
+            <!-- 显示待上传图片  -->
+            <div class="loadContainer">
+                <div class="wantUpload">
+                    <!-- <div class="uploadPhotoItem">
+                        <span class="myProgress">
+                            <span class="plan"></span>
+                            30%
+                        </span>
+                        <img src="img/1.jpg" />
+                        <span class="pictureName">
+                            home
+                        </span>
+                    </div> -->
+                </div>
+                <div class="addStyle">
+                    <span class="fileinput-add">
+                        <span></span>
+                        <input class="imgFile-add" type="file" multiple="multiple" />
+                    </span>
+                </div>
+                <!-- 开始上传按钮 -->
+                <div class="bottomStyle">
+                    <span class="uploadBtn">开始上传</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    let uploadArr = [];
+    document.querySelector(".close").onclick = function () {
+        document.querySelector(".masking").style.display = "none";
+    }
+    document.querySelector(".mybtn").onclick = function () {
+        document.querySelector(".masking").style.display = "block";
+    }
+
+    // 点击上传添加图片按钮
+    document.querySelector(".imgFile").onchange = function () {
+        // console.log(this.files.length);
+        document.querySelector(".showContainer").style.display = "none";
+        document.querySelector(".loadContainer").style.display = "block";
+        // 根据文件生成dom节点；
+        // [...this.files].forEach(file => {
+        //     let uploadImgObj = new UploadImg(file);
+        //     uploadImgObj.createHtml();
+        //     uploadArr.push(uploadImgObj);
+        // })
+
+        queue(this.files);
+        async function queue(files) {
+            for (let i = 0; i < files.length; i++) {
+                let uploadImgObj = new UploadImg(files[i]);
+                await uploadImgObj.createHtml();
+                uploadArr.push(uploadImgObj);
+            }
+        }
+
+    }
+
+    // 点击继续上传添加图片；
+    document.querySelector(".imgFile-add").onchange = function () {
+        [...this.files].forEach(file => {
+            let uploadImgObj = new UploadImg(file);
+            uploadImgObj.createHtml();
+            uploadArr.push(uploadImgObj);
+        })
+    }
+
+    // 点击上传按钮上传图片；
+    document.querySelector(".uploadBtn").onclick = function () {
+        // console.log(uploadArr);
+        // uploadArr.forEach(async item => {
+        //    await item.uploadImgFile();
+        // })
+        queue();
+        async function queue() {
+            for (let i = 0; i < uploadArr.length; i++) {
+                await uploadArr[i].uploadImgFile();
+            }
+        }
+
+    }
+
+
+    class UploadImg {
+        constructor(file) {
+            this.file = file;
+            this.ele = "";
+        }
+        createHtml() {
+            return new Promise(resolve => {
+                // 将文件转换成base64；
+                let reader = new FileReader();
+                reader.readAsDataURL(this.file);
+                reader.onload = () => {
+                    // console.log(reader.result);
+                    let uploadDiv = document.createElement("div");
+                    uploadDiv.classList.add("uploadPhotoItem");
+                    uploadDiv.innerHTML = `<span class="myProgress">
+                            <span class="plan"></span>
+                            <span class="percent">30%</span>
+                        </span>
+                        <img src="${reader.result}" />
+                        <span class="pictureName">
+                           ${this.file.name}
+                        </span>`;
+                    document.querySelector(".wantUpload").appendChild(uploadDiv);
+                    resolve();
+                    this.ele = uploadDiv;
+                }
+            })
+
+        }
+        uploadImgFile() {
+            return new Promise(resolve => {
+                let xhr = new XMLHttpRequest();
+                let form = new FormData();
+                form.append("img", this.file);
+                // form.append("name","张三");附加属性，还有值
+                xhr.open("post", "/upload", true);
+                xhr.onload = function () {
+                    // console.log(xhr.responseText);
+                    resolve();
+                }
+                xhr.upload.onprogress = evt => {
+                    let percent = Math.round((evt.loaded / evt.total) * 100) + "%";
+                    // console.log(evt.loaded / evt.total);
+                    //  console.log(percent);
+                    // document.querySelector(".myProgress").style.display = "block";
+                    this.ele.querySelector(".myProgress").style.display = "block";
+                    this.ele.querySelector(".plan").style.width = percent;
+                    this.ele.querySelector(".percent").innerHTML = percent;
+                }
+                xhr.send(form);
+            })
+        }
+    }
+</script>
+
+</html>

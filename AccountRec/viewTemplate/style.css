@@ -1,0 +1,119 @@
+/*
+=====
+LEVEL 1. CORE STYLES
+=====
+*/
+
+.table{
+  --uiTableCellPadding: var(--tableCellPadding, 20px);
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table__td, .table__th{
+  padding: var(--uiTableCellPadding);
+}
+
+/*
+=====
+LEVEL 2. PRESENTATION STYLES
+=====
+*/
+
+/*
+Changing the layout of table. A data are displayed as cards on mobile devices and as columns on desktop devices.  
+*/
+
+@media (max-width: 640px){
+
+  .table, .table__thead, .table__tbody, .table__tr, .table__td, .table__mobile-header, .table__mobile-caption, .table__value{
+    display: block;
+  }
+
+  .table__head, .table__desktop-name-params{
+    display: none;
+  }
+}
+
+@media (min-width: 641px){
+  .table__mobile-header, .table__mobile-caption{
+    display: none;
+  }
+}
+
+/*
+The outer demo stylization
+*/
+
+.table{
+  --uiTableBgColor: var(--tableBgColor);
+  --uiTableHeaderBgColor: var(--tableHeaderBgColor);
+  --uiTableHeaderTextColor: var(--tableHeaderTextColor);
+  --uiTableRowBgColorHover: var(--tableRowBgColorHover);
+}
+
+@media (max-width: 640px){
+
+  .table__tr{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 1px 2px 0 rgba(0, 0, 0, .24);
+    background-color: var(--uiTableBgColor);
+  }
+
+  .table__mobile-header{
+    background-color: var(--uiTableHeaderBgColor);
+    color: var(--uiTableHeaderTextColor);
+  }
+
+  .table__mobile-header:not(:first-child){
+    margin-top: 30px;
+  }
+
+  .table__td:not(:last-child){
+    border-bottom: 1px solid var(--tableSeparatorColor);
+  }
+
+  .table__mobile-caption{
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 641px){
+
+  .table{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 1px 2px 0 rgba(0, 0, 0, .24);
+    background-color: var(--uiTableBgColor);
+  }
+
+  .table__thead{
+    background-color: var(--uiTableHeaderBgColor);
+    color: var(--uiTableHeaderTextColor);
+  }  
+
+  .table__tr:hover{
+    background-color: var(--uiTableRowBgColorHover);
+  }
+
+  .table__th:first-child{
+    text-align: left;
+  }
+
+  .table__td:not(:first-child), .table__th:not(:first-child){
+    text-align: center;
+  }
+}
+
+/*
+=====
+LEVEL 3. SETTINGS
+=====
+*/
+
+.table{
+  --tableCellPadding: 2rem;
+  --tableHeaderBgColor: #5668ca;
+  --tableHeaderTextColor: #fff;
+  --tableRowBgColorHover: #f0f0f0;
+  --tableSeparatorColor: #eee;
+}

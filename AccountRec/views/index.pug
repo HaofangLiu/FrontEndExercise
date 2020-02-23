@@ -1,0 +1,71 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Bill record
+  link(rel='stylesheet' href='./style.css')
+.page
+  h1.page__title Bill Record
+    a(href='http://www.baidu.com/')
+      button.btn_add Add
+  table.table
+    thead.table__thead
+      tr.table__head
+        th.table__th
+          select#filterText(style='display:inline-block' onchange='filterTable()')
+            option(disabled='' selected='') BillDate
+            option(value='01') Jan
+            option(value='02') Feb
+            option(value='03') Mar
+            option(value='04') Apr 
+            option(value='05') May 
+            option(value='06') Jun 
+            option(value='07') July 
+            option(value='08') Aug 
+            option(value='09') Sep 
+            option(value='10') Oct 
+            option(value='11') Nov 
+            option(value='12') Dec 
+            option(value='all') All
+        th.table__th BillCategory
+        th.table__th BillType
+        th.table__th BillAmount
+    tbody.table__tbody
+      each val in dataRead
+        tr.table__mobile-header
+          td.table__td(colspan='5')
+            span #{val.time}
+        tr.table__tr
+          td.table__td.table__desktop-name-params
+            span.testUsed #{val.time}
+          td.table__td
+            span.table__mobile-caption BillCategory
+            span.table__value #{val.category}
+          td.table__td
+            span.table__mobile-caption BillType
+            span.table__value #{val.type}
+          td.table__td
+            span.table__mobile-caption BillAmount
+            span.table__value #{val.amount}
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+script.
+  function filterTable(){
+  //- console.log(filterText.value)
+  if(filterText.value === 'all'){
+    $('.table__tr').show();
+  }else{
+    let rex = new RegExp(`\\d{4}-(${filterText.value})-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z`);
+    //- console.log(rex)
+    $('.testUsed').each(function(){
+      let spanValue = $(this).text();
+      console.log(spanValue)
+      $('.table__tr').hide();
+      $('.table__tr').filter(function(){
+        //- $(this).toggle(rex.test(spanValue))
+        return rex.test(spanValue);
+      }).show()
+    })
+  }
+  }
+
+

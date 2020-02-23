@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>主页</h1>
+    <!-- <form action="" enctype="application/x-www-form-urlencoded"></form> -->
+    <button onclick="sub()">点击请求</button>
+    <button onclick="xml()">请求xml</button>
+</body>
+<script>
+    // 主流数据传输格式；json / xml
+    function sub() {
+        let xhr = new XMLHttpRequest();
+        xhr.open("post", "/post",true);
+        // xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+        xhr.setRequestHeader("content-type","application/json")
+        xhr.onload= function(){
+            console.log(xhr.responseText);
+            // console.log(xhr.response);
+        }
+        // let data = "name=李四&age=20"
+        let data = JSON.stringify({name:"李四"});
+        xhr.send(data);
+    }
+    function xml(){
+        let xhr = new XMLHttpRequest();
+        xhr.open("post", "/xml",true);
+        xhr.overrideMimeType("text/xml");
+        xhr.onload= function(){
+            // console.log(xhr.responseText);
+            console.log(xhr.responseXML);
+          let vueName  =  xhr.responseXML.querySelector("vue").innerHTML;
+          console.log(vueName);
+        }
+        xhr.send();
+    }
+
+
+
+</script>
+
+</html>
