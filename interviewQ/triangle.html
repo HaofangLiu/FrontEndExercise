@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="triangle-top"></div>
+    <div class="triangle-bottom"></div>
+    <div class="triangle-left"></div>
+    <div class="triangle-right"></div>
+
+    <div class="box b1"></div>
+    <div class="box b2"></div>
+  </body>
+  <style>
+    .triangle-top {
+      width: 0;
+      height: 0;
+      border-width: 0 40px 40px;
+      border-style: solid;
+      border-color: transparent transparent red;
+    }
+
+    .triangle-bottom {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 40px 40px 0 40px;
+      border-color: blueviolet transparent transparent transparent;
+    }
+
+    .triangle-left {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 40px 0 40px 40px;
+      border-color: transparent transparent transparent #89ff56;
+    }
+
+    .triangle-right {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 40px 40px 40px 0;
+      border-color: transparent yellowgreen transparent;
+    }
+
+    /*缺口的三角形*/
+    .box {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+    }
+    .b1 {
+      /*底层的盒子三角形相当于全部是黑色的*/
+      border-bottom-color: #000;
+    }
+    .b2 {
+      /*上层的为白色覆盖*/
+      border-bottom-color: #fff;
+    }
+
+    /*旋转的硬币效果*/
+    .money {
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+      background-color: #48adff;
+      border: 2px solid #000;
+
+      /*开启3D效果*/
+
+      perspective: 500px;
+      transform-style: preserve-3d;
+      /*transform : rotateY(180deg);*/
+      animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+  </style>
+</html>
