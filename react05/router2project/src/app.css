@@ -1,0 +1,34 @@
+.wrap {
+    width: 800px;
+}
+a {
+    text-decoration: none;
+}
+.nav {
+    display: flex;
+    border-bottom: 1px solid #000;
+    font: 14px/30px "宋体";
+   
+}
+.nav a {
+    flex: 1;
+    text-align: center;
+    color: #000;
+}
+.nav .active {
+    color: red;
+}
+
+.index_nav {
+    display:  flex;
+}
+.index_nav a {
+    flex: 1;
+    color: #666;
+    font: 12px/24px "宋体";
+    text-align: center;
+}
+.index_nav .active {
+    color: blue;
+}
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="button">
+      open baidu
+    </button>
+  </body>
+  <script>
+    //打开一个新窗口
+    //window.open(URL,target,specs,replace);
+    //URL:新窗口的地址
+    //specs:窗口打开规格设置：窗口宽高；有很多特性不支持
+    let btn = document.querySelector("#button");
+    btn.onclick = function() {
+      window.open("http://www.baidu.com","_blank","width=200px");
+      // _blank 新窗口打开
+      // _self 当前窗口打开
+        //window.open返回值是一个window对象；
+    };
+  </script>
+</html>

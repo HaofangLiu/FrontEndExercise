@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="jsCheckGroup">
+      <div class="checkgroup radius">
+        <div data-val="a" class="item selected">选项a</div>
+        <div data-val="b" class="item">选项b</div>
+        <div data-val="c" class="item">选项c</div>
+        <div data-val="d" class="item">选项d</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function CheckGroup(renderTo, options, isMultiple) {
+      var that = this;
+      that.renderTo = renderTo;
+      that.options = options;
+      that.isMultiple = !!isMultiple;
+      that.initHtml();
+      that.initEvent();
+    }
+    CheckGroup.prototype.initHtml = fInitHtml;
+    CheckGroup.prototype.initEvent = fInitEvent;
+    CheckGroup.prototype.toggleEl = fToggleEl;
+    CheckGroup.prototype.isSelected = fIsSelected;
+    CheckGroup.prototype.val = fVal;
+
+    function fInitHtml() {
+      var that = this;
+      // 请补全代码，拼接html字符串
+      var sHtml = "";
+      that.renderTo.innerHTML = sHtml;
+      // 请补全代码，获取checkgroup的dom元素引用
+      that.el = null;
+    }
+
+    function fInitEvent() {
+      var that = this;
+      that.el &&
+        that.el.addEventListener("click", function(event) {
+          var item = event.target;
+          item.classList.contains("item") && that.toggleEl(item);
+        });
+    }
+
+    function fToggleEl(item) {
+      // 根据当前是单选还是多选，以及当前元素是否选中，高亮/取消���亮指定的选项dom元素
+      var that = this;
+      if (that.isSelected(item)) {
+        // 请补全代码
+      } else if (that.isMultiple) {
+        // 请补全代码
+      } else {
+        // 请补全代码
+      }
+    }
+
+    function fIsSelected(item) {
+      // 请补全代码，判断item是否选中
+      return item;
+    }
+
+    function fVal(values) {
+      var that = this;
+      if (arguments.length === 0) {
+        // 请补全代码，获取高亮的选项元素
+        var items = null;
+        // 请补全代码，获取高亮的选项元素的data-val
+        var result = [];
+        return result;
+      }
+      !that.isMultiple && values.length > 1 && (values.length = 1);
+      // 请补全代码，获取所有的选项元素
+      var items = null;
+      // 请补全代码，在指定元素上加上高亮的class
+    }
+  </script>
+  <style>
+    .checkgroup .item {
+      height: 42px;
+      line-height: 42px;
+      padding: 0 10px;
+      margin: 10px 0;
+      border: 1px solid #c7c7c7;
+      border-radius: 6px;
+    }
+    .checkgroup.radius .item {
+      border-radius: 21px;
+    }
+    .checkgroup .item.selected {
+      border: 1px solid #08b292;
+      background: #08b292;
+      color: #ffffff;
+    }
+  </style>
+</html>

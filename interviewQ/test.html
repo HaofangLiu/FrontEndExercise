@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="top"></div>
+    <div class="middle">
+      <div class="fixed"></div>
+    </div>
+    <div class="bottom"></div>
+    <div class="multiply"></div>
+  </body>
+  <script>
+    setTimeout(() => console.log("1", a));
+
+    new Promise(resolve => resolve()).then(() => console.log("2", a));
+
+    console.log("3", a);
+    var a = "哈哈";
+    console.log("4", a);
+    function a() {}
+
+    for (let i = 1; i <= 9; i++) {
+      let myUl = document.createElement("ul");
+      for (let j = 1; j <= i; j++) {
+        let myLi = document.createElement("li");
+        let myText = document.createTextNode(j + " × " + i + " = " + i * j);
+        myLi.appendChild(myText);
+        myUl.appendChild(myLi);
+      }
+      document.querySelector(".multiply").appendChild(myUl);
+    }
+  </script>
+
+  <style>
+    .multiply {
+      width: 1000px;
+      margin: 0 auto;
+    }
+
+    ul {
+      width: 1000px;
+      overflow: hidden;
+      margin-top: 4px;
+      font-size: 12px;
+      line-height: 36px;
+      text-align: center;
+    }
+    li {
+      width: 90px;
+      margin: 0 4px;
+      display: inline-block;
+      text-align: center;
+      border: 1px solid #333;
+    }
+
+    .top,
+    .middle,
+    .bottom {
+      position: relative;
+      background: lightblue;
+      height: 200px;
+    }
+    .middle {
+      background: yellow;
+    }
+    .bottom {
+      background: pink;
+    }
+    .fixed {
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      background: red;
+    }
+  </style>
+</html>
