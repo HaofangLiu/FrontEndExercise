@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // let readline = read_line();
+    // let readline2 = read_line();
+    // let splitArr = readline.split(" ");
+    // let playerArr = readline2.split(" ");
+    function test(n, m, playerArr) {
+      let timesOfFight = 0;
+      let i = 0;
+      let j = 1;
+      let totalGame = 0;
+      while (timesOfFight < m) {
+        if (playerArr[i] > playerArr[j]) {
+          timesOfFight++;
+          let temp = playerArr[j];
+          playerArr.splice(j, 1);
+          playerArr.push(temp);
+        } else {
+          timesOfFight = 1;
+          let temp = playerArr[i];
+          playerArr.splice(i, 1);
+          playerArr.push(temp);
+        }
+        totalGame++;
+      }
+      console.log(totalGame);
+    }
+    test(4, 2, [1, 3, 2, 4]);
+  </script>
+</html>

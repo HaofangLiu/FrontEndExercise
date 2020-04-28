@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{n1}}</h1>
+      <h2>{{v1}}</h2>
+      <!-- <input type="text" v-bind:value="n1" /> -->
+      <!-- 双向绑定方法1:v-model -->
+      <input type="text" v-model="n1" />
+      <textarea v-model="v1" cols="30" rows="10"></textarea>
+      <hr />
+      <p>{{v2}}</p>
+      <input type="radio" v-model="v2" value="male" />male
+      <input type="radio" v-model="v2" value="female" />female
+      <hr />
+      <p>{{v3}}</p>
+      <input type="checkbox" v-model="v3" /> agree
+      <hr />
+      <p>{{v4}}</p>
+      <input type="checkbox" v-model="v4" value="lucas" /> lucas
+      <input type="checkbox" v-model="v4" value="ingrid" /> ingrid
+      <hr />
+      <select v-model="v2">
+        <option value="男">男</option>
+        <option value="女">女</option>
+      </select>
+      <select v-model="v4" multiple>
+        <option value="lucas">lucas</option>
+        <option value="ing">ing</option>
+      </select>
+    </div>
+  </body>
+  <script>
+    //{{}, v-bind都是单向绑定
+    //通过{{}, v-bind语法的时候，可以把实例中的数据显示在视图中
+    //实例发生变化的时候，还回去更新视图（数据流）从数据 --> 视图
+    //但是视图变化了，数据不会改变
+    let app = new Vue({
+      el: "#app",
+      data: {
+        n1: 10,
+        v1: "aaa",
+        v2: "male",
+        v3: true,
+        v4: ["lucas","ingrid"]
+      }
+    });
+    //app.n1 = 10就可以改变数据
+
+    //原生的操作办法。
+    // let input = document.querySelector("input");
+    // input.oninput = function(){
+    //     app.n1 = this.value;
+    // }
+
+    //双向绑定方法1:v-model
+    //但是不能所有元素使用v-model 针对表单元素form以及自定义元素使用
+  </script>
+</html>

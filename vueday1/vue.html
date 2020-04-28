@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-</head>
-<body>
-    
-</body>
-<script>
+  </head>
+  <body>
+    <div id="app">
+      <hr />
+      <!-- <my-com></my-com> -->
+    </div>
+  </body>
+  <script>
+    Vue.component("MyCom", {
+      template: `
+      <div>this is a component</div>
+      `,
+    });
+    //react是命令式--》 render函数：确定组件的视图
+    //构造函数，构造一个组件对象（对象传进去配置），这里是根组件
     let app = new Vue({
-        
-    })
-</script>
+      el: "#app", //el就是挂载在哪个节点上，不能是head/body
+      //template只能具有一个根节点
+      template: `<div> this is vue</div>`, //挂载内容==》相当于react render或者return. template首先会解析成vnode，然后会渲染html
+      //   //有render不走template
+      render(createElement) {
+        //render优先级最高
+        let vVode = createElement(
+          //3参数。标签名，标签属性（可省略），标签内容
+          "div",
+          "vue node"
+        );
+        return vVode;
+      },
+    });
+
+    console.log(app);
+  </script>
 </html>

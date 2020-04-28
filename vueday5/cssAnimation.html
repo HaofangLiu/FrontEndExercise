@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .js_animation_box {
+        width: 100px;
+        height: 100px;
+        background: red;
+        transition: 0.5s all;
+      }
+      .js_animation_box.end {
+        width: 200px;
+        height: 200px;
+        background: green;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="js_animation_btn">原生动画</button>
+    <div id="js_animation_box" class="js_animation_box"></div>
+  </body>
+  <script>
+    let jsAnimationBtn = document.querySelector("#js_animation_btn");
+    let jsAnimationBox = document.querySelector("#js_animation_box");
+
+    jsAnimationBtn.onclick = function () {
+      jsAnimationBox.classList.toggle("end");
+    };
+  </script>
+</html>

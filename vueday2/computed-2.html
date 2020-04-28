@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .current {
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <label
+        ><input
+          :class="{'current': gender === ''}"
+          type="button"
+          value="all"
+          @click="changeGender('')"
+      /></label>
+      <label
+        ><input
+          :class="{'current': gender === '男'}"
+          type="button"
+          value="男"
+          @click="changeGender('男')"
+      /></label>
+      <label
+        ><input
+          :class="{'current': gender === '女'}"
+          type="button"
+          value="女"
+          @click="changeGender('女')"
+      /></label>
+      <hr />
+      <ul>
+        <li v-for="user of showedUser">
+          {{user.username}}--{{user.gender}}
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    let app = new Vue({
+      el: "#app",
+      data: {
+        gender: "",
+        //源数据
+        users: [
+          { id: 1, username: "baogege", gender: "男" },
+          { id: 2, username: "mt", gender: "男" },
+          { id: 3, username: "haigege", gender: "男" },
+          { id: 4, username: "zMouse", gender: "男" },
+          { id: 5, username: "reci", gender: "女" },
+          { id: 6, username: "lisi", gender: "女" }
+        ]
+      },
+      methods: {
+        changeGender(gender) {
+          this.gender = gender;
+          //   console.log(this.gender);
+        }
+      },
+      //通过计算得来的属性（get，set）
+      computed: {
+        showedUser: {
+          get() {
+            if (this.gender === "") {
+              return this.users;
+            } else {
+              return this.users.filter(user => user.gender === this.gender);
+            }
+          }
+        }
+      }
+    });
+  </script>
+</html>

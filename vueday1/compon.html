@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>这是vue</h1>
+      <hr />
+      <my-component></my-component>
+      <my-component></my-component>
+    </div>
+  </body>
+  <script>
+    Vue.component("MyComponent", {
+      template: `
+            <div>MyComponent</div>
+        `
+    });
+
+    let app = new Vue({
+      el: "#app"
+    });
+  </script>
+</html>

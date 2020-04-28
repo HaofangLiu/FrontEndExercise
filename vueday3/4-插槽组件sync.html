@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .pagination {
+        margin: 30px 0px 0px;
+      }
+
+      .pagination span {
+        border: 1px solid;
+        padding: 10px;
+        margin: 10px 0px 0px 10px;
+      }
+
+      .pagination span.current {
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="user of showUsers" :key="user.id">
+          {{user.id}} -- {{user.username}}
+        </li>
+      </ul>
+      <hr />
+      <my-pagination
+        :current-page.sync="userPage"
+        :page-size="pageSize"
+        :total="users.length"
+      ><p>分页组件</p></my-pagination>
+    </div>
+  </body>
+  <script>
+    //v-model传入值，更新值
+    Vue.component("my-pagination", {
+      props: {
+        total: {
+          type: Number,
+          default: 0
+        },
+        pageSize: {
+          type: Number,
+          default: 2
+        },
+        currentPage: {
+          type: Number,
+          default: 1
+        }
+      },
+      data() {
+        return {
+          pages: Math.ceil(this.total / this.pageSize)
+        };
+      },
+      template: `
+            <div class="pagination">
+                <span 
+                    v-for="page of pages" 
+                    :key="page" 
+                    :class="{current:page === currentPage}" 
+                    @click="changePage(page)">
+                        {{page}}
+                </span>
+                <slot></slot>
+            </div>
+        `,
+      methods: {
+        changePage(page) {
+          this.$emit("update:currentPage", page);
+        }
+      }
+    });
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        users: [
+          { id: 1, username: "lucas", gender: "male" },
+          { id: 2, username: "ing", gender: "male" },
+          { id: 3, username: "wu", gender: "male" },
+          { id: 4, username: "winston", gender: "male" },
+          { id: 5, username: "lucax", gender: "male" },
+          { id: 6, username: "herzt", gender: "male" },
+          { id: 7, username: "rsq", gender: "male" }
+        ],
+        userPage: 1,
+        pageSize: 2
+      },
+      methods: {},
+      computed: {
+        showUsers() {
+          let start = (this.userPage - 1) * this.pageSize;
+          let end = start + this.pageSize;
+          return this.users.filter(
+            (user, index) => index >= start && index < end
+          );
+        }
+      }
+    });
+  </script>
+</html>

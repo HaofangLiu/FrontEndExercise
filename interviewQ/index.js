@@ -220,3 +220,94 @@ getObj({ d: 123,
     } 
   } 
 }, "a.b.c");
+
+//继承
+function People(name){
+  this.name = name;
+  this.sleep = function(){
+    console.log("sleep");
+  }
+}
+
+People.prototype.eat = function(food){
+  console.log("prototype method: eat food");
+}
+
+//1.原型链继承:子类的原型指向父类；
+function Woman(){
+}
+Woman.prototype = new People();
+Woman.prototype.name = 'sdad';
+let womanObj = new Woman();
+
+//2.借助构造函数继承
+function Woman(name){
+  People.call(this);
+  this.name = name;
+}
+
+//实例继承（原型式继承）
+function Woman(name){
+  let instance = new People();
+  instance.name = name;
+  return instance;
+}
+
+//组合式继承:
+function People(name,age){
+  this.name = name;
+  this.age = age;
+}
+People.prototype.eat = function(){
+  return this.name + this.age + "eat";
+}
+
+function Woman(){
+  People.call(this);
+}
+Woman.prototype = new People();
+Woman.prototype.constructor = Woman;
+let womanObj1 = new Woman("da",12);
+womanObj1.eat();
+
+//寄生组合继承:
+function People(name,age){
+  this.name = name;
+  this.age = age;
+}
+People.prototype.eat = function(){
+  return this.name + this.age + "eat";
+}
+
+
+// new Function(...args) {
+//   this.a = 1
+// }
+
+// function myNew
+// //
+// myNew(Function, ..args)
+
+// Function.prototype.run =
+
+
+// a instanceof b   true
+
+
+// div display: flex
+//   div flex:1
+//   div flex: 2
+
+// flex: 2 1 10x;
+
+// transform 
+// transtion
+// translate
+
+
+// cookie  
+
+// https 
+
+// http 302 
+// 204

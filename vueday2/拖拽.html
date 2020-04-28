@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .box {
+        position: absolute;
+        left: 100px;
+        top: 100px;
+        width: 100px;
+        height: 100px;
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="box" v-drag></div>
+    </div>
+  </body>
+  <script>
+    Vue.directive("drag", {
+      //回调函数
+      bind(el, binding) {
+        //el其实就是指向这个div模块
+        console.log(
+          "1. call once, the first time bind to element(node)可以做初始化，因为不依赖于渲染"
+        );
+
+        let isDragStart = false; //
+        let disX = 0;
+        let disY = 0;
+        el.addEventListener("mousedown", function(e) {
+          isDragStart = true;
+          disX = e.clientX - el.offsetLeft;
+          disY = e.clientY - el.offsetTop;
+        });
+        document.addEventListener("mousemove", function(e) {
+          if (isDragStart) {
+            let x = e.clientX - disX;
+            let y = e.clientY - disY;
+
+            el.style.left = x + "px";
+            el.style.top = y + "px";
+
+            e.preventDefault();
+          }
+        });
+        document.addEventListener("mouseup", function() {
+          isDragStart = false;
+        });
+      },
+      inserted(el, binding) {
+        console.log("如果需要操作dom，则用inserted");
+        el.focus();
+      },
+      update() {
+        console.log("if node update");
+      }
+    });
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        n1: 1
+      }
+    });
+  </script>
+</html>

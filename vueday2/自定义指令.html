@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-focus/>
+    </div>
+  </body>
+  <script>
+    Vue.directive("focus", {
+        //回调函数
+        bind(el,binding){
+            console.log("call once, the first time bind to element(node)可以做初始化，因为不依赖于渲染");
+        },
+        inserted(el,binding){
+            console.log("如果需要操作dom，则用inserted");
+            el.focus()
+        },
+        update(){
+            console.log("if node update")
+        }
+    });
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        n1: 1
+      }
+    });
+  </script>
+</html>

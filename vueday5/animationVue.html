@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background: red;
+      transition: 0.5s all;
+    }
+    .box.end {
+      width: 200px;
+      height: 200px;
+      background: green;
+    }
+
+    .showBox-enter-active,
+    .showBox-leave-active {
+      transition: all 0.5s ease;
+    }
+    .showBox-enter {
+      width: 0;
+      height: 0;
+    }
+    .showBox-enter-to {
+      width: 100px;
+      height: 100px;
+    }
+    .showBox-leave {
+      width: 100px;
+      height: 100px;
+    }
+    .showBox-leave-to {
+      width: 0;
+      height: 0;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <button @click="animation">
+        showBox
+      </button>
+      <button @click="animate">
+        change
+      </button>
+      <transition name="showBox">
+        <div class="box" v-if="isShow" :class="{end:isEnd}"></div
+      ></transition>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        isEnd: false,
+        isShow: false,
+      },
+      methods: {
+        animation() {
+          this.isShow = !this.isShow;
+        },
+        animate() {
+          this.isEnd = !this.isEnd;
+        },
+      },
+    });
+  </script>
+</html>

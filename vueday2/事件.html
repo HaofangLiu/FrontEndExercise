@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="add">
+        Add
+      </button>
+      <p>{{number}}</p>
+      <ul>
+        <li v-for="user of users" :key="user.id">{{user.name}}</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    let app = new Vue({
+      el: "#app",
+      data: {
+        number: 1,
+        users: [
+          { id: 1, name: "lucas" },
+          { id: 2, name: "ingrid" },
+          { id: 3, name: "winston" }
+        ]
+      },
+      methods: {
+        add() {
+          //this永远指向当前组件实例
+          this.number++;
+        }
+      }
+    });
+    console.log(app)
+  </script>
+</html>

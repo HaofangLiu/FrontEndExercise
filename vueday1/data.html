@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{title}}</h1>
+      <dl>
+          <dt>user name :</dt>
+          <dd>{{user.userName}}</dd>
+          <dt>user gender :</dt>
+          <dd>{{user.gender}}</dd>
+      </dl>
+      <hr />
+    </div>
+  </body>
+  <script>
+    let app = new Vue({
+      el: "#app",
+      data: {
+        title: "this is vue data",
+        user:{
+            userName:"Lucas"
+        }
+      }
+    });
+  </script>
+</html>

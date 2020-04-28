@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .pagination {
+        margin: 30px 0px 0px;
+      }
+
+      .pagination span {
+        border: 1px solid;
+        padding: 10px;
+        margin: 10px 0px 0px 10px;
+      }
+
+      .pagination span.current {
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="user of showUsers" :key="user.id">
+          {{user.id}} -- {{user.username}}
+        </li>
+      </ul>
+      <hr />
+      <my-pagination
+        :current-page="userPage"
+        :page-size="pageSize"
+        :total="users.length"
+        @change="userSelectPage"
+      ></my-pagination>
+      <!-- <my-pagination :total="10" :page-size="5"></my-pagination> -->
+    </div>
+  </body>
+  <script>
+    Vue.component("my-pagination", {
+      //props用来接受外部传进来的参数
+      props: {
+        total: {
+          type: Number,
+          default: 0
+        },
+        pageSize: {
+          type: Number,
+          default: 2
+        },
+        currentPage: {
+          type: Number,
+          default: 1
+        }
+      },
+      //注意！！：通过Vue.component定义的组件，data必须是一个函数，而且该函数必须返回一个对象，这个返回的对象就是data
+      //因为组件有可能被复用很多次，如果需要的数据不一样则需要重新去处理。用函数实现数据处理。
+      data() {
+        return {
+          pages: Math.ceil(this.total / this.pageSize) //porps需要用this来调用，确保data跟props没有重名
+        };
+      },
+      template: `
+            <div class="pagination">
+                <span 
+                    v-for="page of pages" 
+                    :key="page" 
+                    :class="{current:page === currentPage}" 
+                    @click="changePage(page)">
+                        {{page}}
+                </span>
+            </div>
+        `,
+      methods: {
+        changePage(page) {
+            // console.log(page)
+            //注意，不能直接去改变currentPage，因为是父级传进来的。
+            //组件内部不能修改传入的props，应该通过事件机制传入父级
+            // this.currentPage = page;
+            this.$emit('change',page)//自带的内部方法，类似于addEventListener，值可以随意定义。page参数会传到定义的对应方法中作为参数接受。
+        }
+      }
+    });
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        users: [
+          { id: 1, username: "lucas", gender: "male" },
+          { id: 2, username: "ing", gender: "male" },
+          { id: 3, username: "wu", gender: "male" },
+          { id: 4, username: "winston", gender: "male" },
+          { id: 5, username: "lucax", gender: "male" },
+          { id: 6, username: "herzt", gender: "male" },
+          { id: 7, username: "rsq", gender: "male" }
+        ],
+        userPage: 1,
+        pageSize: 2
+      },
+      methods:{
+        userSelectPage(page){
+            // console.log(page);
+            this.userPage = page;
+        }
+      },
+      computed: {
+        showUsers() {
+          let start = (this.userPage - 1) * this.pageSize;
+          let end = start + this.pageSize;
+          //   console.log(start,end)
+          return this.users.filter(
+            (user, index) => index >= start && index < end
+          );
+        }
+      }
+    });
+  </script>
+</html>

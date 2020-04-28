@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function filterArr(arrStr) {
+      let temparr = arrStr.split(",");
+      if (!temparr.length) return null;
+      let arr = Array.from(new Set(temparr));
+      arr.sort((a, b) => a - b);
+      console.log(arr);
+      let result = [];
+      let index = 0;
+      // console.log(result[index]);
+      for (let i = 0; i < arr.length; i++) {
+        if (result[index] == undefined) {
+          result[index] = [];
+        }
+        if (
+          arr[i - 1] === undefined ||
+          parseInt(arr[i]) - 1 === parseInt(arr[i - 1])
+        ) {
+          result[index].push(arr[i]);
+        } else {
+          index++;
+          result[index] = [];
+          result[index].push(arr[i]);
+        }
+      }
+      console.log(result);
+    }
+    filterArr("2,10,3,4,5,7,11,10,11,20");
+
+    // function test(list) {
+    //   //   let list = readline().split(" ");
+    //   //   let list = readline().split(" ");
+    //   let a1 = 0;
+    //   let a2 = 0;
+    //   let a3 = 0;
+    //   let a4 = 0;
+    //   let a4Count = 0;
+    //   let a5 = 0;
+    //   let minus = true;
+    //   for (let i = 1; i < list.length; i++) {
+    //     if (parseInt(list[i]) % 5 === 0 && parseInt(list[i]) % 2 === 0) {
+    //       a1 += parseInt(list[i]);
+    //     }
+    //     if (parseInt(list[i]) % 5 === 1) {
+    //       if (minus) {
+    //         a2 += parseInt(list[i]);
+    //         minus = false;
+    //       } else {
+    //         a2 -= parseInt(list[i]);
+    //         minus = true;
+    //       }
+    //     }
+    //     if (parseInt(list[i]) % 5 === 2) {
+    //       a3 += 1;
+    //     }
+    //     if (parseInt(list[i]) % 5 === 3) {
+    //       a4Count += 1;
+    //       a4 += parseInt(list[i]);
+    //     }
+    //     if (parseInt(list[i]) % 5 === 4) {
+    //       if (parseInt(list[i]) > a5) {
+    //         a5 = parseInt(list[i]);
+    //       }
+    //     }
+    //   }
+    //   if (a4Count != 0) a4 = (a4 / a4Count).toFixed(1);
+    //   console.log(
+    //     parseInt(a1) ? a1 : "N",
+    //     parseInt(a2) ? a2 : "N",
+    //     parseInt(a3) ? a3 : "N",
+    //     parseInt(a4) ? a4 : "N",
+    //     parseInt(a5) ? a5 : "N"
+    //   );
+    // }
+    // test("20 231 463 724 981 284 851 14 638 824 277 731 37 426 86 570 697 853 130 966 50");
+  </script>
+</html>

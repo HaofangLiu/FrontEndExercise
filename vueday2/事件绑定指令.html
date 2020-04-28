@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button v-addel:click="fn">{{number}}</button>
+    </div>
+  </body>
+  <script>
+    //自定义指令v-addEventListenerclick
+    //注意自定义指令应该是小写,指令中:后面的是参数，在args中。 ,后面的是modifier，默认boolean
+    Vue.directive("addel", {
+      //回调函数
+      bind(el, binding) {
+        // console.log(el, binding);
+        el.addEventListener(binding.arg, binding.value);
+      },
+      inserted(el, binding) {
+        // console.log("i am inserted");
+      },
+      update() {
+        // console.log("i am updated");
+      }
+    });
+
+    //绑定Vue
+    new Vue({
+      el: "#app",
+      data:{
+        number : 1
+      },
+      methods: {
+        fn() {
+            // console.log("asd");
+            console.log(this.number++);
+        }
+      }
+    });
+  </script>
+</html>

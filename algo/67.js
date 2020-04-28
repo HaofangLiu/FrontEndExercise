@@ -127,6 +127,20 @@ function NumberOf1(n) {
   return count;
 }
 
+//11.1 find most constant 1 in this arr
+function findMost1(str) {
+  let binaryCodeStr = str.toString(2);
+  let regExp = /\1+/g;
+  let arr = binaryCodeStr.match(regExp);
+  let maxLength = 0;
+  arr.forEach(item => {
+    if (item.length > maxLength) {
+      maxLength = item.length;
+    }
+  });
+  return maxLength;
+}
+
 //12.求数字的次方；
 function Power(base, exponent) {
   // write code here
@@ -238,131 +252,155 @@ function isSubTRee(rootValue1, rootValue2) {
 }
 
 //18.镜像子树
-function Mirror(root)
-{
-    // write code here
-    if(!root) return null;
-    
-    const nodeleft = root.left;
-    root.left = root.right;
-    root.right = nodeleft;
-    
-    Mirror(root.left);
-    Mirror(root.right);
-    
+function Mirror(root) {
+  // write code here
+  if (!root) return null;
+
+  const nodeleft = root.left;
+  root.left = root.right;
+  root.right = nodeleft;
+
+  Mirror(root.left);
+  Mirror(root.right);
 }
 
-
 //19.反转矩形
-function printMatrix(matrix)
-{
-    if(!matrix.length) return [];
-    let arr = [];
-    let rowStart = 0;
-    let rowEnd = matrix.length - 1;
-    let columnStart = 0;
-    let columnEnd = matrix[0].length - 1;
-    
-    while(rowStart <= rowEnd && columnStart <= columnEnd){
-        for(let i = columnStart;i <= columnEnd; i++){
-            arr.push(matrix[rowStart][i])
-        }
-        rowStart++;
-        for(let i=rowStart;i <=rowEnd;i++){
-            arr.push(matrix[i][columnEnd]);
-        }
-        columnEnd--;
-        if(rowStart <= rowEnd){
-            for(let i = columnEnd;i>=columnStart;i--){
-                arr.push(matrix[rowEnd][i]);
-            }
-            rowEnd--;
-        }
-        if(columnStart <= columnEnd){
-            for(let i = rowEnd;i >= rowStart;i--){
-                arr.push(matrix[i][columnStart]);
-            }
-            columnStart++
-        }
+function printMatrix(matrix) {
+  if (!matrix.length) return [];
+  let arr = [];
+  let rowStart = 0;
+  let rowEnd = matrix.length - 1;
+  let columnStart = 0;
+  let columnEnd = matrix[0].length - 1;
+
+  while (rowStart <= rowEnd && columnStart <= columnEnd) {
+    for (let i = columnStart; i <= columnEnd; i++) {
+      arr.push(matrix[rowStart][i]);
     }
-    return arr;
+    rowStart++;
+    for (let i = rowStart; i <= rowEnd; i++) {
+      arr.push(matrix[i][columnEnd]);
+    }
+    columnEnd--;
+    if (rowStart <= rowEnd) {
+      for (let i = columnEnd; i >= columnStart; i--) {
+        arr.push(matrix[rowEnd][i]);
+      }
+      rowEnd--;
+    }
+    if (columnStart <= columnEnd) {
+      for (let i = rowEnd; i >= rowStart; i--) {
+        arr.push(matrix[i][columnStart]);
+      }
+      columnStart++;
+    }
+  }
+  return arr;
 }
 
 //20.栈的min取出
 let minStack = [];
 let allStack = [];
 
-function push(node)
-{
-    if(!minStack.length){
-        minStack.push(node);
-    }else if(minStack[minStack.length - 1] >= node){
-        minStack.push(node);
-    }
-    allStack.push(node);
+function push(node) {
+  if (!minStack.length) {
+    minStack.push(node);
+  } else if (minStack[minStack.length - 1] >= node) {
+    minStack.push(node);
+  }
+  allStack.push(node);
 }
-function pop()
-{
-    // write code here
-    if(minStack[minStack.length - 1] === allStack[allStack.length - 1]){
-        minStack.pop();
-    }
-    allStack.pop();
+function pop() {
+  // write code here
+  if (minStack[minStack.length - 1] === allStack[allStack.length - 1]) {
+    minStack.pop();
+  }
+  allStack.pop();
 }
-function top()
-{
-    // write code here
-    while(allStack.length){
-        return allStack[allStack.length - 1];
-    }
+function top() {
+  // write code here
+  while (allStack.length) {
+    return allStack[allStack.length - 1];
+  }
 }
-function min()
-{
-    // write code here
-    while(minStack.length){
-        return minStack[minStack.length - 1];
-    }
-    
+function min() {
+  // write code here
+  while (minStack.length) {
+    return minStack[minStack.length - 1];
+  }
 }
 
 //21. 判断能不能出栈
-function IsPopOrder(pushV, popV){
-    let stack = [];
+function IsPopOrder(pushV, popV) {
+  let stack = [];
 
-    pushV.forEach((item) => {
-        if(item === popV[0]){
-            popV.shift();
-            for(var i = 0;i < popV.length;i++){
-                if(popV[0] === stack[stack.length - 1]){
-                    stack.pop();
-                }else{
-                    break;
-                }
-            }
-        }else{
-            stack.push(item);
+  pushV.forEach(item => {
+    if (item === popV[0]) {
+      popV.shift();
+      for (var i = 0; i < popV.length; i++) {
+        if (popV[0] === stack[stack.length - 1]) {
+          stack.pop();
+        } else {
+          break;
         }
-    })
+      }
+    } else {
+      stack.push(item);
+    }
+  });
 
-    return !stack.length;
+  return !stack.length;
 }
 
 //22.从上到下打印根节点
-function PrintFromTopToBottom(root)
-{
-    // write code here
-    if(!root){
-        return [];
-    }
-    let arr = [];
-    let queue = [root];
-    while(queue.length){
-        const node = queue.shift();
-        arr.push(node.val);
-        node.left && queue.push(node.left);
-        node.right && queue.push(node.right);
-    }
-    return arr;
+function PrintFromTopToBottom(root) {
+  // write code here
+  if (!root) {
+    return [];
+  }
+  let arr = [];
+  let queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    arr.push(node.val);
+    node.left && queue.push(node.left);
+    node.right && queue.push(node.right);
+  }
+  return arr;
 }
 
 //23.
+
+//function sushu;
+function fundSushu() {
+  let input = readline().split(" ");
+  let start = parseInt(input[0]);
+  let end = parseInt(input[1]);
+  let ssArr = [];
+  for (let i = 2; ssArr.length < end; i++) {
+    let isSS = true;
+    for (let j = 2; j <= i / 2; j++) {
+      if (i % j === 0) {
+        isSS = false;
+        break;
+      }
+    }
+    if (isSS) {
+      ssArr.push(i);
+    }
+  }
+  let arrResu = ssArr.slice(start - 1);
+  let count = 1;
+  let resu = "";
+  for (let i = 0; i < arrResu.length; i++) {
+    if (count === 10 || i === arrResu.length - 1) {
+      resu += arrResu[i];
+      console.log(resu);
+      count = 1;
+      resu = "";
+    } else {
+      resu += arrResu[i] + " ";
+      count++;
+    }
+  }
+}

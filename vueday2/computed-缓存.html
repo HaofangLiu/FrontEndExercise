@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .current {
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <label
+        ><input
+          :class="{'current': gender === ''}"
+          type="button"
+          value="all"
+          @click="changeGender('')"
+      /></label>
+      <label
+        ><input
+          :class="{'current': gender === '男'}"
+          type="button"
+          value="男"
+          @click="changeGender('男')"
+      /></label>
+      <label
+        ><input
+          :class="{'current': gender === '女'}"
+          type="button"
+          value="女"
+          @click="changeGender('女')"
+      /></label>
+      <hr />
+      <ul>
+        <li v-for="user of showedUser">
+          <input
+            type="checkbox"
+            v-model="user.checked"
+          />{{user.username}}--{{user.gender}}
+        </li>
+      </ul>
+      <input type="checkbox" v-model="checkedAll" />全选
+    </div>
+  </body>
+  <script>
+    let app = new Vue({
+      el: "#app",
+      data: {
+        gender: "",
+        //源数据
+        users: [
+          { id: 1, username: "lucas", gender: "男", checked: false },
+          { id: 2, username: "ingrid", gender: "女", checked: false },
+          { id: 3, username: "tom", gender: "男", checked: true },
+          { id: 4, username: "winston", gender: "男", checked: false },
+          { id: 5, username: "jay", gender: "女", checked: false },
+          { id: 6, username: "allen", gender: "女", checked: false }
+        ]
+      },
+      methods: {
+        changeGender(gender) {
+          this.gender = gender;
+          //   console.log(this.gender);
+        }
+      },
+      //通过计算得来的属性（get，set）
+      computed: {
+        showedUser: {
+          get() {
+            if (this.gender === "") {
+              return this.users;
+            } else {
+              return this.users.filter(user => user.gender === this.gender);
+            }
+          },
+          set() {}
+        },
+        checkedAll: {
+          get() {
+            return this.users.every(user => user.checked);
+          },
+          set(newVal) {
+            //checkall的值
+            // console.log(newVal);
+            this.users.forEach(element => {
+              element.checked = newVal;
+            });
+          }
+        }
+      }
+    });
+  </script>
+</html>

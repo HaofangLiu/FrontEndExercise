@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <sup>下标文本</sup>
+    <sub>上标文本</sub>
+    <mark>突出显示</mark>
+  </body>
+  <script>
+    function replace(str) {
+      let newArr = str.split(" ").join("%20");
+      console.log(newArr);
+      return newArr;
+    }
+    replace("   1 ");
+  </script>
+</html>

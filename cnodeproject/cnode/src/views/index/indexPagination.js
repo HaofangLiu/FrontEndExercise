@@ -9,8 +9,8 @@ function IndexPagination() {
   return (
     <div className="index_pagination">
       <Pagination
-        defaultCurrent={page}//用default current，然后当重新载入的时候，重新家在这个页码；
-        // current={page} antdesign有bug，cuurent会显示全部页码；
+        // defaultCurrent={page}//用default current，然后当重新载入的时候，重新家在这个页码；
+        current={parseInt(page)}
         total={1000}
         pageSize={15}
         itemRender={(page, type) => {

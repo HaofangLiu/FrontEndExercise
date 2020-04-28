@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            n:"lucas"
+        },
+        //创建阶段之前,初始化阶段，应用不多
+        beforeCreate(){
+            conso.log(this.n)//undefined
+            console.log("this is before create");
+        },
+        //创建阶段之后
+        //在实例创建完成后被立即调用，该阶段完成了对 `data` 中的数据的 `observer`，该阶段可以处理一些异步任务
+        created(){
+            conso.log(this.n)
+            console.log("app created");
+        },
+        //挂载阶段
+        //在挂载开始之前被调用，应用不多
+        beforeMount(){
+            console.log("beforeMount");
+        },
+        //该阶段执行完了模板解析，以及挂载。同时组件根组件元素被赋给了 `$el` 属性，该阶段可以通过 <u>DOM</u> 操作来对组件内部元素进行处理了
+        mounted(){
+            console.log("mounted");
+        }
+    })
+</script>
+</html>

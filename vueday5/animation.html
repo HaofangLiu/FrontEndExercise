@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background: red;
+      transition: 0.5s all;
+    }
+    .box.end {
+      width: 200px;
+      height: 200px;
+      background: green;
+    }
+  </style>
+  <body>
+    <div id="app">
+        <button @click="animation">
+            change
+        </button>
+        <div class="box" :class="{end:isEnd}"></div>
+    </div>
+    
+  </body>
+  <script>
+    //css动画，js动画（推荐用css，有负责的交互动画时考虑js动画）
+    //css利用屏幕刷新，js利用animation
+    new Vue({
+      el: "#app",
+      data:{
+          isEnd:false
+      },
+      methods:{
+          animation(){
+              this.isEnd = !this.isEnd;
+          }
+      }
+    });
+  </script>
+</html>

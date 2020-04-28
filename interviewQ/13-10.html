@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    function numberCovert(number) {
+      // write code here
+      let arrSplit = number.split("");
+      let res = "";
+      for (let i = 0; i < arrSplit.length; i++) {
+        let value = arrSplit[i];
+        if (isNaN(value)) {
+          switch (value) {
+            case "C":
+              value = 10;
+              break;
+            case "G":
+              value = 11;
+              break;
+            case "B":
+              value = 12;
+              break;
+            default:
+              break;
+          }
+        } else {
+          value = arrSplit[i].parseInt();
+        }
+        while (value / 3 >= 3) {
+          res += value % 3;
+        }
+      }
+      console.log(res.reverse());
+    }
+
+    numberCovert("C");
+    // module.exports = {
+    //   numberCovert: numberCovert,
+    // };
+  </script>
+</html>

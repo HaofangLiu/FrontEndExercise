@@ -7,16 +7,18 @@ import { useLocation, Link, useParams } from "react-router-dom";
 import { useTopics } from "../../store/action/index";
 import TopicTag from "../index/topicTag";
 import FromNow from "./fromNow";
+import { Typography } from "antd";
 
-function IndexList() {
+function IndexList(props) {
   // let momoent = Moment;
   // console.log(moment());
   // console.log("123123132312",useSelector(state));
-  let { loading, data } = useSelector(state => state.topics); //拿到redux中的状态（是否载入和传回的数据）
+  let { loading, data } = props;
+  // let { loading, data } = useSelector(state => state.topics); //拿到redux中的状态（是否载入和传回的数据）
   // console.log(useLocation());
   // console.log(useParams());
   let { search } = useLocation();
-  let { tab = "all", page = 1 } = qs.parse(search.substring(1));//给默认值的用处是为了防止在同一页面时仍然继续加载
+  let { tab = "all", page = 1 } = qs.parse(search.substring(1)); //给默认值的用处是为了防止在同一页面时仍然继续加载
   let getData = useTopics(); //让hooks帮我们发起axios请求，调用hooks
   useEffect(
     //useeffect 注意坑：当组件更新时，都回去请求，请求完了会执行hooks，然后又会发起新的更新。然后就会无限递归
@@ -37,7 +39,7 @@ function IndexList() {
         // console.log(avatar_url);
         return (
           <List.Item>
-            <Col xs={24} md={20}>
+            <Col xs={2} md={1}>
               <Link to={`/user/${loginname}`}>
                 <Avatar
                   icon={<UserOutlined></UserOutlined>}
@@ -45,8 +47,14 @@ function IndexList() {
                   title={loginname}
                 ></Avatar>
               </Link>
+            </Col>
+            <Col xs={2} md={1}>
               <TopicTag tab={top ? "top" : good ? "good" : tab}></TopicTag>
-              <Link to={`/topic/${id}`}>{title}</Link>
+            </Col>
+            <Col xs={20} md={18}>
+              <Link to={`/topic/${id}`} className="list_item">
+                  {title}
+              </Link>
             </Col>
             <Col xs={0} md={4}>
               <FromNow date={last_reply_at} />

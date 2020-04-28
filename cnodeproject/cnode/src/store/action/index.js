@@ -48,4 +48,21 @@ function useTopic(){
     }
 }
 
-export {useTopics,useTopic};
+function useUserDetail(){
+    let dispatch = useDispatch();//组件可以派发(dispatch)行为(action)给store,而不是直接通知其它组件
+    //hooks只能在最外层调用，调用hooks时返回一个请求
+    return function(loginname){
+        dispatch({
+            type:"user_loading"
+        });
+        http.get(`/user/${loginname}`).then((res) => {
+            // console.log(res)
+            dispatch({
+                type:"user_loadover",
+                data: res.data.data
+            })
+        })
+    }
+}
+
+export {useTopics,useTopic,useUserDetail};

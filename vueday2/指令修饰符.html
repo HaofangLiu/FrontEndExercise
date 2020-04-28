@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{n1}}</h1>
+      <input type="text" v-model.lazy.number="n1" />
+    </div>
+  </body>
+  <script>
+      //指令名称
+      //指令值
+      //指令修饰符
+      //指令参数
+      //v-bind:id="myId"  ===> v-bind指令名称， :id指令参数， “myId”叫做指令值， .xxx叫做指令修饰符
+      //lazy监听change事件
+    let app = new Vue({
+      el: "#app",
+      data: {
+        n1: 10 + 1
+      }
+    });
+  </script>
+</html>

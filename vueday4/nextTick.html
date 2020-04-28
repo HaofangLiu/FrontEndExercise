@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 ref="h1">{{n}}</h1>
+        <button @click="add">
+            add
+        </button>
+    </div>
+    
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            n:1
+        },
+        methods:{
+            add(){
+                this.n++;
+                console.log(this.n);
+                //vue不是实时渲染，一旦数据改了，视图立刻渲染
+                // console.log('innnerHTML',this.$refs.h1.innerHTML);
+                //这里是渲染之后获取dom
+                this.$nextTick(() => {
+                    console.log('innnerHTML',this.$refs.h1.innerHTML);
+                })
+            }
+        }
+    })
+</script>
+</html>
