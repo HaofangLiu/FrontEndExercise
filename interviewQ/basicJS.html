@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //错误！！不能这么写！因为每次循环如果有相同的遍历删除以后，就会跳过该index进入下一位。
+    function remove(arr, item) {
+      arr.forEach((itemT, index) => {
+        if (itemT === item) {
+          arr.splice(index, 1);
+        }
+      });
+      console.log(arr);
+    }
+    //remove([1, 2, 2, 2, 2, 3, 4, 2], 2);
+
+    //正确解法：
+    function remove1(arr, item) {
+      let res = [];
+      arr.forEach((itemT) => {
+        if (itemT !== item) {
+          res.push(itemT);
+        }
+      });
+      return res;
+    }
+
+    function duplicates(arr) {
+      let newArr = arr.sort();
+      let res = [];
+      for (let i = 0; i < newArr.length; i++) {
+        if (newArr[i] !== newArr[i - 1] && newArr[i] === newArr[i + 1]) {
+          res.push(newArr[i]);
+        }
+      }
+      console.log(res);
+    }
+    // duplicates([1, 2, 4, 4, 3, 3, 1, 5, 3]);
+
+    function square(arr) {
+      let res = [];
+      arr.forEach((e) => {
+        res.push(Math.pow(e, 2));
+      });
+
+      console.log(res);
+    }
+
+    // square([1, 2, 3, 4]);
+
+    function findAllOccurrences(arr, target) {
+      let res = [];
+      let newArr = arr.forEach((e, idx) => {
+        e === target && res.push(idx);
+      });
+      return res;
+    }
+    // findAllOccurrences(["a", "b", "c", "d", "e", "f", "a", "b", "c"], "a");
+
+    const a = {
+      a: 10,
+      fn() {
+        // console.log(this.a);
+      },
+    };
+
+    const b = a.fn;
+    b();
+
+    // setTimeout(() )
+
+    function count(start, end) {
+      console.log(start++);
+      let timer = setInterval(() => {
+        start <= end ? console.log(start++) : "";
+      }, 100);
+      return {
+        cancel() {
+          clearInterval(timer);
+        },
+      };
+    }
+
+    count(1,10)
+  </script>
+</html>
